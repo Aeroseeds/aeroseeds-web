@@ -4,7 +4,9 @@ import ProblemSection from "@/components/problem-section";
 import WhatIfSection from "@/components/what-if-section";
 import OurApproach from "@/components/our-approach";
 import BenefitOne from "@/components/benefit-one";
-import BenefitTwo from "@/components/benefit-two"; // <-- Import it
+import BenefitTwo from "@/components/benefit-two";
+import BenefitThree from "@/components/benefit-three";
+import CtaSection from "@/components/cta-section"; // <-- Import it
 
 export default function Home() {
   return (
@@ -15,7 +17,9 @@ export default function Home() {
       <WhatIfSection />
       <OurApproach />
       <BenefitOne />
-      <BenefitTwo /> {/* <-- Add it here */}
+      <BenefitTwo />
+      <BenefitThree />
+      <CtaSection /> {/* <-- Add it here */}
     </main>
   );
 }

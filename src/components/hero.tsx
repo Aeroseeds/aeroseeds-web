@@ -38,7 +38,7 @@ export default function Hero() {
         <nav className="w-full max-w-7xl mx-auto px-6 py-6 md:py-8 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
             <Image src="/logo.svg" alt="Aeroseeds Logo" width={32} height={32} />
-            <span className="hidden md:block font-serif text-3xl text-brand-cream tracking-tight mt-1">
+            <span className="hidden md:block font-sans text-3xl text-brand-cream tracking-tight mt-1">
               aeroseeds
             </span>
           </Link>
@@ -56,12 +56,12 @@ export default function Hero() {
         <div className="flex-1 flex flex-col items-center mt-[25vh] md:mt-16 px-4 text-center">
           
           {/* SPACING REDUCED: Changed to leading-[1.05] for ultra-tight line spacing */}
-          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl text-brand-cream max-w-4xl mb-6 drop-shadow-md leading-[1.05]">
+          <h1 className="font-mono text-4xl md:text-6xl lg:text-7xl text-brand-cream max-w-4xl mb-6 drop-shadow-md leading-[1.05]">
             Africa's farms are still<br className="hidden md:block" />operating blind
           </h1>
           
           {/* SPACING REDUCED: Changed to leading-snug */}
-          <p className="font-mono text-brand-cream text-sm md:text-base max-w-2xl mb-8 md:mb-10 leading-snug drop-shadow-md">
+          <p className="font-serif text-brand-white text-sm md:text-base max-w-2xl mb-8 md:mb-10 leading-snug drop-shadow-md">
             Millions of acres. Little data. Delayed decisions.<br className="hidden md:block" />
             Farmers rely on instinct where intelligence should exist.
           </p>
