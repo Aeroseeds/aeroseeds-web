@@ -6,7 +6,7 @@ import OurApproach from "@/components/our-approach";
 import BenefitOne from "@/components/benefit-one";
 import BenefitTwo from "@/components/benefit-two";
 import BenefitThree from "@/components/benefit-three";
-import CtaSection from "@/components/cta-section"; // <-- Import it
+import CtaSection from "@/components/cta-section";
 
 export default function Home() {
   return (
@@ -19,7 +19,7 @@ export default function Home() {
       <BenefitOne />
       <BenefitTwo />
       <BenefitThree />
-      <CtaSection /> {/* <-- Add it here */}
+      <CtaSection />
     </main>
   );
 }

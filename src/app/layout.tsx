@@ -31,10 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // --- FIX: The variables are now attached to the HTML tag ---
     <html lang="en" className={`${customSerif.variable} ${customMono.variable} ${customSans.variable}`} suppressHydrationWarning>
       
-      {/* --- FIX: The body tag is now clean and only has your base styles --- */}
       <body suppressHydrationWarning className="font-sans antialiased text-[#F9F6EE] bg-[#2A1615]">
         {children}
       </body>
