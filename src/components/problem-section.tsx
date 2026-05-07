@@ -28,7 +28,7 @@ export default function ProblemSection() {
             <h2 className="font-serif text-[40px] text-brand-cream leading-tight mb-4">
               Why this happens
             </h2>
-            <p className="font-mono text-brand-cream text-sm max-w-md mx-auto leading-relaxed">
+            <p className="font-mono text-brand-white text-sm max-w-md mx-auto leading-relaxed">
               Across Nigeria and africa, farms operate with limited visibility, delayed insight, and inconsistent resource use.
             </p>
           </div>

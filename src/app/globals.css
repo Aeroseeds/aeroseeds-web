@@ -5,8 +5,9 @@
   --color-brand-orange: #E3863D;
   --color-brand-cream: #F7E7A8;
   --color-brand-dark: #131313;
-
-  --font-serif: var(--font-custom-serif);
-  --font-mono: var(--font-custom-mono);
-  --font-sans: var(--font-custom-sans);
+  --color-brand-white: #FFFFFF;
+  
+  --font-serif: var(--font-caslon);
+  --font-mono: var(--font-ibm-mono);
+  --font-sans: var(--font-tiempos);
 }
