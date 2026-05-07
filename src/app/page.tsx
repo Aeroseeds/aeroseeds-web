@@ -7,6 +7,7 @@ import OurApproach from "@/components/our-approach";
 import BenefitOne from "@/components/benefit-one";
 import BenefitTwo from "@/components/benefit-two";
 import BenefitThree from "@/components/benefit-three";
+import UnderstandYourLand from "@/components/understand-your-land";
 import CtaSection from "@/components/cta-section";
 
 export default function Home() {
@@ -40,7 +41,7 @@ export default function Home() {
 
       {/* 5. Understand Your Land Link (Ready for when you build it) */}
       <div id="understand-your-land">
-        {/* Drop your new component here when it's done */}
+        <UnderstandYourLand />
       </div>
 
       <CtaSection />
