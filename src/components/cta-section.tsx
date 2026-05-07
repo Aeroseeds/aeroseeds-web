@@ -65,6 +65,7 @@ export default function CtaSection() {
           />
         </div>
 
+
         <div className="block md:hidden w-full">
           <Image 
             src="/cta-mobile.png" 
