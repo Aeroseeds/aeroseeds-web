@@ -16,12 +16,9 @@ export default function ProblemSection() {
 
   return (
     <>
-      {/* =========================================
-          MOBILE VIEW: STICKY HORIZONTAL SCROLL
-          ========================================= */}
+      {/* MOBILE VIEW: STICKY HORIZONTAL SCROLL */}
       <section ref={targetRef} className="block md:hidden relative h-[300vh] w-full bg-[#2A1615]">
         
-        {/* CRITICAL FIX 1: Removed overflow-x-hidden from the sticky container */}
         <div className="sticky top-0 h-[100dvh] w-full flex flex-col justify-center py-8">
           
           <div className="text-center mb-6 px-4 w-full shrink-0">
@@ -33,7 +30,6 @@ export default function ProblemSection() {
             </p>
           </div>
 
-          {/* CRITICAL FIX 2: Added overflow-hidden HERE to the wrapper holding the track, not the sticky div */}
           <div className="w-full flex-1 flex items-center overflow-hidden">
             <motion.div 
               style={{ x }} 
@@ -79,9 +75,7 @@ export default function ProblemSection() {
         </div>
       </section>
 
-      {/* =========================================
-          DESKTOP VIEW: STATIC CENTERED GRID
-          ========================================= */}
+      {/* DESKTOP VIEW: STATIC CENTERED GRID */}
       <section className="hidden md:block bg-[#2A1615] w-full py-24 font-mono overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
       

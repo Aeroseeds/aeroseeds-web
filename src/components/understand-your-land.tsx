@@ -6,7 +6,6 @@ import Image from "next/image";
 export default function UnderstandYourLand() {
   const [size, setSize] = useState<string>("");
   const [problem, setProblem] = useState<string>("pest");
-  // NEW: State to track which view is active on mobile
   const [mobileView, setMobileView] = useState<"old" | "new">("old");
 
   // Base parameters per hectare (ha)
@@ -115,9 +114,7 @@ export default function UnderstandYourLand() {
           Enter your farm size above to see your comparison
         </p>
 
-        {/* =========================================
-            MOBILE VIEW: TOGGLE & SINGLE CARD
-            ========================================= */}
+        {/* MOBILE VIEW: TOGGLE & SINGLE CARD */}
         <div className="flex md:hidden flex-col w-full max-w-2xl">
           
           {/* TOGGLE PILL */}
@@ -170,9 +167,7 @@ export default function UnderstandYourLand() {
 
         </div>
 
-        {/* =========================================
-            DESKTOP VIEW: SIDE-BY-SIDE TABLE
-            ========================================= */}
+        {/* DESKTOP VIEW: SIDE-BY-SIDE TABLE */}
         <div className="hidden md:flex w-full max-w-2xl border border-white/20 rounded-2xl bg-[#1A1A1A]/50 backdrop-blur-sm overflow-hidden shadow-xl">
           
           <div className="flex-1 p-8 border-r border-white/10">

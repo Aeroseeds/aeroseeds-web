@@ -9,7 +9,6 @@ export default function Hero() {
 
   return (
     <>
-      {/* FIX 1: Changed h-screen to h-[100dvh] to track mobile address bars perfectly */}
       <section className="relative w-full h-[100dvh] overflow-hidden bg-[#2A1615]">
         
         <div className="absolute inset-0 z-0">
@@ -58,11 +57,7 @@ export default function Hero() {
 
       </section>
 
-      {/* =========================================
-          DORMANT MODAL OVERLAY
-          ========================================= */}
       {isModalOpen && (
-        /* FIX 2: Added h-[100dvh] here to force the background to cover the full dynamic screen */
         <div className="fixed inset-0 h-[100dvh] w-full z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
           
           {/* MODAL CONTAINER */}

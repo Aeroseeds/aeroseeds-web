@@ -9,9 +9,6 @@ export default function NavBar() {
 
   return (
     <>
-      {/* =========================================
-          MAIN FLOATING NAVBAR
-          ========================================= */}
       <section className="fixed top-6 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-[1600px] bg-[#7C7C7C]/[0.21] border border-white/[0.18] rounded-full backdrop-blur-md">
         <nav className="flex h-16 md:h-20 items-center justify-between px-6 md:px-10 font-mono">
           
@@ -49,9 +46,7 @@ export default function NavBar() {
         </nav>
       </section>
 
-      {/* =========================================
-          FULL SCREEN MOBILE MENU OVERLAY
-          ========================================= */}
+      {/* FULL SCREEN MOBILE MENU OVERLAY */}
       {isOpen && (
         <div className="fixed inset-0 z-50 bg-[#131313] flex flex-col px-6 py-8 animate-in fade-in duration-200">
           

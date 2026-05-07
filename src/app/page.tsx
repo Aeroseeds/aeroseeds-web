@@ -17,29 +17,24 @@ export default function Home() {
       <Hero />
       <Divider />
       
-      {/* 1. The Problem Link */}
       <div id="problem">
         <ProblemSection />
       </div>
 
-      {/* 2. The Context Link */}
       <div id="context">
         <WhatIfSection />
       </div>
 
-      {/* 3. The System Link */}
       <div id="system">
         <OurApproach /> 
       </div>
 
-      {/* 4. Impact Link (Wraps all your benefits together) */}
       <div id="impact">
         <BenefitOne />
         <BenefitTwo />
         <BenefitThree />
       </div>
 
-      {/* 5. Understand Your Land Link (Ready for when you build it) */}
       <div id="understand-your-land">
         <UnderstandYourLand />
       </div>
