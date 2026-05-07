@@ -9,7 +9,8 @@ export default function Hero() {
 
   return (
     <>
-      <section className="relative w-full h-screen overflow-hidden bg-[#2A1615]">
+      {/* FIX 1: Changed h-screen to h-[100dvh] to track mobile address bars perfectly */}
+      <section className="relative w-full h-[100dvh] overflow-hidden bg-[#2A1615]">
         
         <div className="absolute inset-0 z-0">
           <Image 
@@ -61,12 +62,13 @@ export default function Hero() {
           DORMANT MODAL OVERLAY
           ========================================= */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+        /* FIX 2: Added h-[100dvh] here to force the background to cover the full dynamic screen */
+        <div className="fixed inset-0 h-[100dvh] w-full z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
           
-          {/* MODAL CONTAINER - Reduced mobile padding (p-5) */}
+          {/* MODAL CONTAINER */}
           <div className="w-full max-w-[500px] bg-[#F7E7A8] rounded-[24px] p-5 md:p-8 shadow-2xl relative max-h-[95vh] overflow-y-auto">
             
-            {/* HEADER - Reduced mobile text size and margin */}
+            {/* HEADER */}
             <h2 className="font-serif text-[32px] md:text-[40px] font-bold text-[#131313] leading-tight tracking-tight mb-2 md:mb-3">
               Be part of what's<br/>being built.
             </h2>
@@ -74,7 +76,7 @@ export default function Hero() {
               Tell us who you are and what brings you<br className="hidden md:block" /> here. We'll reach out direct
             </p>
 
-            {/* ROLE SELECTORS - Changed to grid-cols-2 on mobile, tighter gaps/padding */}
+            {/* ROLE SELECTORS */}
             <div className="grid grid-cols-2 gap-2 md:gap-3 mb-4 md:mb-6">
               {["Farmer", "Investor", "An Organisation", "Following the mission"].map((role) => (
                 <button
@@ -91,14 +93,13 @@ export default function Hero() {
               ))}
             </div>
 
-            {/* INPUT FIELDS - Tighter spacing (space-y-3) */}
+            {/* INPUT FIELDS */}
             <div className="space-y-3 md:space-y-5">
               
               <div>
                 <label className="block font-mono text-[12px] md:text-[13px] text-[#131313] mb-1.5 md:mb-2">
                   What brought you here?
                 </label>
-                {/* Changed to rows={2} on mobile to save vertical space */}
                 <textarea 
                   rows={2}
                   placeholder="How you found us what resonated.."
@@ -119,7 +120,7 @@ export default function Hero() {
 
             </div>
 
-            {/* ACTION BUTTONS - Tighter top margin (mt-5) and padding */}
+            {/* ACTION BUTTONS */}
             <div className="flex items-center gap-3 mt-5 md:mt-8">
               <button 
                 onClick={() => setIsModalOpen(false)}
