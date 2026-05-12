@@ -8,29 +8,38 @@ export default function UnderstandYourLand() {
   const [problem, setProblem] = useState<string>("pest");
   const [mobileView, setMobileView] = useState<"old" | "new">("old");
 
-  // Base parameters per hectare (ha)
+  // New Constants from aeroseeds_calculator_data_2026.xlsx
   const baseRates = {
-    pest: { factor: 1, name: "Pest Outbreak" },
-    nutrient: { factor: 0.8, name: "Nutrient Deficiency" },
-    irrigation: { factor: 0.5, name: "Irrigation Check" }
+    pest: { factor: 1.0, name: "Pest Outbreak", lossPctOld: 25, lossPctNew: 5 },
+    nutrient: { factor: 0.85, name: "Nutrient Deficiency", lossPctOld: 20, lossPctNew: 3 },
+    irrigation: { factor: 0.6, name: "Irrigation Check", lossPctOld: 15, lossPctNew: 2 }
   };
 
-  const oldBase = { chem: 2500, time: 2, rate: 1000, lossValue: 1000, lossPct: 15 };
-  const aeroBase = { chem: 1800, time: 0.25, rate: 1000, lossValue: 200, lossPct: 2 };
+  const standardCosts = {
+    chemOld: 3500,
+    chemNew: 2100,
+    timeOld: 2.5,
+    timeNew: 0.15,
+    laborRate: 1500,
+    cropValuePerHa: 10000
+  };
 
   // Calculations
   const numSize = parseFloat(size) || 0;
-  const factor = baseRates[problem as keyof typeof baseRates].factor;
+  const currentProblem = baseRates[problem as keyof typeof baseRates];
+  const factor = currentProblem.factor;
 
-  const oldChem = oldBase.chem * numSize * factor;
-  const oldTime = oldBase.time * numSize * factor;
-  const oldLoss = oldBase.lossValue * numSize * factor;
-  const oldTotal = oldChem + (oldTime * oldBase.rate) + oldLoss;
+  const oldChem = standardCosts.chemOld * numSize * factor;
+  const oldTime = standardCosts.timeOld * numSize * factor;
+  const oldLaborCost = oldTime * standardCosts.laborRate;
+  const oldLoss = (currentProblem.lossPctOld / 100) * standardCosts.cropValuePerHa * numSize;
+  const oldTotal = oldChem + oldLaborCost + oldLoss;
 
-  const aeroChem = aeroBase.chem * numSize * factor;
-  const aeroTime = aeroBase.time * numSize * factor;
-  const aeroLoss = aeroBase.lossValue * numSize * factor;
-  const aeroTotal = aeroChem + (aeroTime * aeroBase.rate) + aeroLoss;
+  const aeroChem = standardCosts.chemNew * numSize * factor;
+  const aeroTime = standardCosts.timeNew * numSize * factor;
+  const aeroLaborCost = aeroTime * standardCosts.laborRate;
+  const aeroLoss = (currentProblem.lossPctNew / 100) * standardCosts.cropValuePerHa * numSize;
+  const aeroTotal = aeroChem + aeroLaborCost + aeroLoss;
 
   const savings = oldTotal - aeroTotal;
 
@@ -42,7 +51,7 @@ export default function UnderstandYourLand() {
 
   const formatNumber = (val: number, suffix: string) => {
     if (!size || isNaN(numSize)) return `- ${suffix}`;
-    return `${val.toLocaleString('en-US', { maximumFractionDigits: 1 })} ${suffix}`;
+    return `${val.toLocaleString('en-US', { maximumFractionDigits: 2 })} ${suffix}`;
   };
 
   const hasInput = size && !isNaN(numSize) && numSize > 0;
@@ -72,7 +81,7 @@ export default function UnderstandYourLand() {
           Convert instantly to better understand scale.
         </p>
 
-        {/* INPUTS (Stacked on mobile, side-by-side on tablet+) */}
+        {/* INPUTS */}
         <div className="flex flex-col sm:flex-row w-full max-w-2xl gap-4 mb-8">
           <div className="relative w-full">
             <input 
@@ -109,7 +118,6 @@ export default function UnderstandYourLand() {
           </h3>
         </div>
 
-        {/* INSTRUCTION TEXT (Hidden on mobile) */}
         <p className="hidden md:block font-mono text-sm text-gray-400 mb-6">
           Enter your farm size above to see your comparison
         </p>
@@ -146,7 +154,6 @@ export default function UnderstandYourLand() {
               </div>
               <div className="flex justify-between">
                 <span className="text-white">Chemical cost</span>
-                <span className="text-gray-400 line-through mr-2 hidden"></span>
                 <span className="text-white">{mobileView === "old" ? formatCurrency(oldChem) : formatCurrency(aeroChem)}</span>
               </div>
               <div className="flex justify-between">
@@ -155,11 +162,10 @@ export default function UnderstandYourLand() {
               </div>
               <div className="flex justify-between">
                 <span className="text-white">Crop loss</span>
-                <span className="text-white">{hasInput ? `${mobileView === "old" ? oldBase.lossPct : aeroBase.lossPct}%` : '-%'}</span>
+                <span className="text-white">{hasInput ? `${mobileView === "old" ? currentProblem.lossPctOld : currentProblem.lossPctNew}%` : '-%'}</span>
               </div>
               <div className="flex justify-between pt-4 border-t border-white/10 mt-4">
                 <span className="text-white">Total cost</span>
-                <span className="text-white line-through mr-2 hidden"></span>
                 <span className="text-white">{mobileView === "old" ? formatCurrency(oldTotal) : formatCurrency(aeroTotal)}</span>
               </div>
             </div>
@@ -170,24 +176,26 @@ export default function UnderstandYourLand() {
         {/* DESKTOP VIEW: SIDE-BY-SIDE TABLE */}
         <div className="hidden md:flex w-full max-w-2xl border border-white/20 rounded-2xl bg-[#1A1A1A]/50 backdrop-blur-sm overflow-hidden shadow-xl">
           
+          {/* THE OLD WAY */}
           <div className="flex-1 p-8 border-r border-white/10">
             <h4 className="font-mono text-red-600 tracking-wider text-sm mb-8 uppercase">The Old Way</h4>
             <div className="space-y-6 font-mono text-sm">
               <div className="flex justify-between"><span className="text-gray-300">Area treated</span><span className="text-white">{formatNumber(numSize, "ha")}</span></div>
               <div className="flex justify-between"><span className="text-gray-300">Chemical cost</span><span className="text-white">{formatCurrency(oldChem)}</span></div>
               <div className="flex justify-between"><span className="text-gray-300">Operation time</span><span className="text-white">{formatNumber(oldTime, "days")}</span></div>
-              <div className="flex justify-between"><span className="text-gray-300">Crop loss</span><span className="text-white">{hasInput ? `${oldBase.lossPct}%` : '-%'}</span></div>
+              <div className="flex justify-between"><span className="text-gray-300">Crop loss</span><span className="text-white">{hasInput ? `${currentProblem.lossPctOld}%` : '-%'}</span></div>
               <div className="flex justify-between pt-4 border-t border-white/10 mt-4"><span className="text-gray-300">Total cost</span><span className="text-white font-bold">{formatCurrency(oldTotal)}</span></div>
             </div>
           </div>
 
+          {/* WITH AEROSEEDS */}
           <div className="flex-1 p-8">
             <h4 className="font-mono text-[#00E599] tracking-wider text-sm mb-8 uppercase">With Aeroseeds</h4>
             <div className="space-y-6 font-mono text-sm">
               <div className="flex justify-between"><span className="text-gray-300">Area treated</span><span className="text-white">{formatNumber(numSize, "ha")}</span></div>
               <div className="flex justify-between"><span className="text-gray-300">Chemical cost</span><span className="text-white">{formatCurrency(aeroChem)}</span></div>
               <div className="flex justify-between"><span className="text-gray-300">Operation time</span><span className="text-white">{formatNumber(aeroTime, "days")}</span></div>
-              <div className="flex justify-between"><span className="text-gray-300">Crop loss</span><span className="text-white">{hasInput ? `${aeroBase.lossPct}%` : '-%'}</span></div>
+              <div className="flex justify-between"><span className="text-gray-300">Crop loss</span><span className="text-white">{hasInput ? `${currentProblem.lossPctNew}%` : '-%'}</span></div>
               <div className="flex justify-between pt-4 border-t border-white/10 mt-4"><span className="text-gray-300">Total cost</span><span className="text-white font-bold">{formatCurrency(aeroTotal)}</span></div>
             </div>
           </div>
