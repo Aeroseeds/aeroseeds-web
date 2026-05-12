@@ -39,7 +39,7 @@ export default function ProblemSection() {
               <div className="w-[100vw] px-6 flex justify-center shrink-0">
                 <div className="w-full max-w-[320px] max-h-[50vh] flex items-center justify-center">
                   <Image 
-                    src="/detection-stamp.png" 
+                    src="/detection-stamp.svg" 
                     alt="Detection comes too late"
                     width={500} height={800}
                     className="w-full h-auto object-contain drop-shadow-2xl rounded-sm"
@@ -50,7 +50,7 @@ export default function ProblemSection() {
               <div className="w-[100vw] px-6 flex justify-center shrink-0">
                 <div className="w-full max-w-[320px] max-h-[50vh] flex items-center justify-center">
                   <Image 
-                    src="/visibility-stamp.png" 
+                    src="/visibility-stamp.svg" 
                     alt="Visibility is limited"
                     width={500} height={800}
                     className="w-full h-auto object-contain drop-shadow-2xl rounded-sm"
@@ -61,7 +61,7 @@ export default function ProblemSection() {
               <div className="w-[100vw] px-6 flex justify-center shrink-0">
                 <div className="w-full max-w-[320px] max-h-[50vh] flex items-center justify-center">
                   <Image 
-                    src="/resources-stamp.png" 
+                    src="/resources-stamp.svg" 
                     alt="Resources are misused"
                     width={500} height={800}
                     className="w-full h-auto object-contain drop-shadow-2xl rounded-sm"
@@ -92,7 +92,7 @@ export default function ProblemSection() {
             
             <div className="w-full max-w-[350px]">
               <Image 
-                src="/detection-stamp.png" 
+                src="/detection-stamp.svg" 
                 alt="Detection comes too late"
                 width={500} height={800}
                 className="w-full h-auto drop-shadow-2xl rounded-sm hover:scale-105 transition-transform duration-500"
@@ -101,7 +101,7 @@ export default function ProblemSection() {
 
             <div className="w-full max-w-[350px]">
               <Image 
-                src="/visibility-stamp.png" 
+                src="/visibility-stamp.svg" 
                 alt="Visibility is limited"
                 width={500} height={800}
                 className="w-full h-auto drop-shadow-2xl rounded-sm hover:scale-105 transition-transform duration-500"
@@ -110,7 +110,7 @@ export default function ProblemSection() {
 
             <div className="w-full max-w-[350px]">
               <Image 
-                src="/resources-stamp.png" 
+                src="/resources-stamp.svg" 
                 alt="Resources are misused"
                 width={500} height={800}
                 className="w-full h-auto drop-shadow-2xl rounded-sm hover:scale-105 transition-transform duration-500"
