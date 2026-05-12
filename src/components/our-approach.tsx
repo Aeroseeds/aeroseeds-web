@@ -14,7 +14,7 @@ export default function OurApproach() {
           <div className="relative flex flex-col p-6 md:p-8 bg-[#DEAB00] overflow-hidden min-h-[280px] md:min-h-full">
             <div className="absolute inset-0 z-0">
               <Image 
-                src="/approach-scan.png" 
+                src="/approach-scan.svg" 
                 alt="Drone scanning" 
                 fill 
                 className="object-cover object-bottom" 
@@ -31,7 +31,7 @@ export default function OurApproach() {
           <div className="relative flex flex-col p-6 md:p-8 bg-[#3F1910] overflow-hidden min-h-[280px] md:min-h-full">
             <div className="absolute inset-0 z-0">
               <Image 
-                src="/approach-analyze.png" 
+                src="/approach-analyze.svg" 
                 alt="Data analysis charts" 
                 fill 
                 className="object-cover object-bottom" 
@@ -48,7 +48,7 @@ export default function OurApproach() {
           <div className="relative flex flex-col p-6 md:p-8 bg-[#DFACFE] overflow-hidden min-h-[280px] md:min-h-full">
             <div className="absolute inset-0 z-0">
               <Image 
-                src="/approach-decide.png" 
+                src="/approach-decide.svg" 
                 alt="Crop decision making" 
                 fill 
                 className="object-cover object-bottom" 
