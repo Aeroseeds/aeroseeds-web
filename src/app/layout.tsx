@@ -25,7 +25,7 @@ const testTiempos = localFont({
 
 export const metadata: Metadata = {
   title: "Aeroseeds",
-  description: "Farming intelligence from above",
+  description: "Aerial intelligence for precision farming",
 };
 
 export default function RootLayout({
