@@ -8,7 +8,7 @@ export default function UnderstandYourLand() {
   const [problem, setProblem] = useState<string>("pest");
   const [mobileView, setMobileView] = useState<"old" | "new">("old");
 
-  // New Constants from aeroseeds_calculator_data_2026.xlsx
+  // Constants from aeroseeds_calculator_data_2026.xlsx
   const baseRates = {
     pest: { factor: 1.0, name: "Pest Outbreak", lossPctOld: 25, lossPctNew: 5 },
     nutrient: { factor: 0.85, name: "Nutrient Deficiency", lossPctOld: 20, lossPctNew: 3 },
@@ -110,10 +110,10 @@ export default function UnderstandYourLand() {
           </div>
         </div>
 
-        {/* MAIN SAVINGS BOX */}
-        <div className="w-full max-w-2xl border border-white/20 rounded-2xl p-8 flex flex-col items-center justify-center bg-[#1A1A1A]/50 backdrop-blur-sm mb-8 shadow-xl">
-          <p className="font-mono text-xs tracking-widest text-gray-400 mb-2 uppercase">Estimated Saving Per Season</p>
-          <h3 className="font-serif text-[56px] md:text-7xl font-bold tracking-tight text-white leading-none">
+        {/* MAIN SAVINGS BOX - FIX APPLIED HERE */}
+        <div className="w-full max-w-2xl border border-white/20 rounded-2xl p-6 md:p-8 flex flex-col items-center justify-center bg-[#1A1A1A]/50 backdrop-blur-sm mb-8 shadow-xl overflow-hidden">
+          <p className="font-mono text-xs tracking-widest text-gray-400 mb-2 uppercase text-center">Estimated Saving Per Season</p>
+          <h3 className="w-full font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-none text-center break-words">
             {hasInput ? formatCurrency(savings) : "₦0.00"}
           </h3>
         </div>
@@ -166,7 +166,7 @@ export default function UnderstandYourLand() {
               </div>
               <div className="flex justify-between pt-4 border-t border-white/10 mt-4">
                 <span className="text-white">Total cost</span>
-                <span className="text-white">{mobileView === "old" ? formatCurrency(oldTotal) : formatCurrency(aeroTotal)}</span>
+                <span className="text-white font-bold">{mobileView === "old" ? formatCurrency(oldTotal) : formatCurrency(aeroTotal)}</span>
               </div>
             </div>
           </div>
