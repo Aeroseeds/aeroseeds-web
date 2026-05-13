@@ -26,7 +26,15 @@ export default function CtaSection() {
 
         <div className="relative z-20 w-full max-w-[1600px] px-6 md:px-16 mt-16 md:mt-20 flex flex-col-reverse md:flex-row justify-between items-center gap-8">
           
-          <div className="flex gap-6 md:gap-8 font-mono text-[#120F0C] text-sm font-bold">
+          <div className="flex flex-wrap gap-x-6 gap-y-2 md:gap-x-8 font-mono text-[#120F0C] text-sm font-bold">
+            <a
+              href="https://aeroseeds.notion.site/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline opacity-80 hover:opacity-100 transition-opacity"
+            >
+              Thesis &amp; Hiring ↗
+            </a>
             <a href="#" className="hover:underline opacity-80 hover:opacity-100 transition-opacity">Privacy policy</a>
             <a href="#" className="hover:underline opacity-80 hover:opacity-100 transition-opacity">Terms and Services</a>
           </div>
