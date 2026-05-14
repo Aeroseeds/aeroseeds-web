@@ -35,8 +35,9 @@ export default function CtaSection() {
             >
               Thesis &amp; Hiring ↗
             </a>
-            <a href="#" className="hover:underline opacity-80 hover:opacity-100 transition-opacity">Privacy policy</a>
-            <a href="#" className="hover:underline opacity-80 hover:opacity-100 transition-opacity">Terms and Services</a>
+            <a href="" className="hover:underline opacity-80 hover:opacity-100 transition-opacity">Privacy policy</a>
+            <a href="" className="hover:underline opacity-80 hover:opacity-100 transition-opacity">Terms and Services</a>
+            <a href="mailto:plant@aeroseeds.io" className="hover:underline opacity-80 hover:opacity-100 transition-opacity">plant@aeroseeds.io</a>
           </div>
 
           <div className="flex gap-6 text-[#120F0C]">
