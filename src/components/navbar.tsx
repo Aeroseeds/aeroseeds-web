@@ -4,6 +4,29 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+const DEMO_MAILTO_SUBJECT = "Demo Request — Aeroseeds Services";
+const DEMO_MAILTO_BODY = `Hello Aeroseeds team,
+
+I'd like to request a demo of your services. I'm interested in:
+[ ] Scan
+[ ] Detect
+[ ] Spray
+[ ] Survey
+[ ] Plant
+[ ] General enquiries
+
+Name:
+Farm location:
+Farm size (hectares):
+Phone number:
+
+Additional details:
+
+Thank you.`;
+const DEMO_MAILTO_HREF = `mailto:plant@aeroseeds.io?subject=${encodeURIComponent(
+  DEMO_MAILTO_SUBJECT
+)}&body=${encodeURIComponent(DEMO_MAILTO_BODY.replace(/\n/g, "\r\n"))}`;
+
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -26,13 +49,13 @@ export default function NavBar() {
             <Link href="#context" className="hover:text-[#F7E7A8] transition-colors">The Context</Link>
             <Link href="#system" className="hover:text-[#F7E7A8] transition-colors">The System</Link>
             <Link href="#impact" className="hover:text-[#F7E7A8] transition-colors">Impact</Link>
-            <Link href="#understand-your-land" className="hover:text-[#F7E7A8] transition-colors">Understand your land</Link>
+            <Link href="#understand-your-land" className="hover:text-[#F7E7A8] transition-colors">Understand your farm</Link>
           </div>
 
           {/* REQUEST A DEMO BUTTON (Hidden on mobile) */}
-          <button className="hidden md:block bg-[#212121] text-[#F7E7A8] font-mono text-sm md:text-base font-semibold px-6 py-2.5 rounded-full hover:bg-black transition-colors shadow-sm hover:scale-105 active:scale-95">
+          <a href={DEMO_MAILTO_HREF} className="hidden md:block bg-[#212121] text-[#F7E7A8] font-mono text-sm md:text-base font-semibold px-6 py-2.5 rounded-full hover:bg-black transition-colors shadow-sm hover:scale-105 active:scale-95">
             Request a demo
-          </button>
+          </a>
 
           {/* HAMBURGER MENU BUTTON (Mobile only) */}
           <button 
@@ -90,9 +113,18 @@ export default function NavBar() {
               Impact
             </Link>
             <Link href="#understand-your-land" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
-              Your Land
+              Your Farm
             </Link>
           </div>
+
+          {/* REQUEST A DEMO BUTTON */}
+          <a
+            href={DEMO_MAILTO_HREF}
+            onClick={() => setIsOpen(false)}
+            className="mt-10 inline-block w-fit bg-[#F7E7A8] text-[#212121] font-mono text-base font-semibold px-6 py-2.5 rounded-full hover:bg-[#FBE381] transition-colors shadow-sm active:scale-95"
+          >
+            Request a demo
+          </a>
 
           {/* SOCIAL ICONS */}
           <div className="mt-auto flex gap-6 text-white pb-4">
