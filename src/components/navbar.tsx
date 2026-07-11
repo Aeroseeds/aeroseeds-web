@@ -32,8 +32,22 @@ export default function NavBar() {
 
   return (
     <>
-      <section className="fixed top-6 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-[1600px] bg-[#7C7C7C]/[0.21] border border-white/[0.18] rounded-full backdrop-blur-md">
-        <nav className="flex h-16 md:h-20 items-center justify-between px-6 md:px-10 font-mono">
+      {/* SVG displacement map that gives the glass its refraction ("lensing") */}
+      <svg className="absolute w-0 h-0" aria-hidden="true">
+        <defs>
+          <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+            <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="noise" />
+            <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
+            <feDisplacementMap in="SourceGraphic" in2="blurred" scale="70" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+      </svg>
+
+      <section className="liquid-glass fixed top-6 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-[1600px] rounded-full">
+        <div className="liquid-glass-effect" />
+        <div className="liquid-glass-tint" />
+        <div className="liquid-glass-shine" />
+        <nav className="relative z-10 flex h-16 md:h-20 items-center justify-between px-6 md:px-10 font-mono">
           
           {/* LOGO & BRAND */}
           <Link href="/" className="flex items-center gap-3">
