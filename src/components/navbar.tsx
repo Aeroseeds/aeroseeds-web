@@ -72,7 +72,8 @@ export default function NavBar() {
       {/* FULL SCREEN MOBILE MENU OVERLAY */}
       {isOpen && (
         <div className="fixed inset-0 z-50 bg-[#131313] flex flex-col px-6 py-8 animate-in fade-in duration-200">
-          
+        <div className="flex flex-col flex-1 w-full max-w-md mx-auto">
+
           {/* TOP BAR INSIDE MENU */}
           <div className="flex items-center justify-between w-full mb-16">
             <Link href="/" className="flex items-center gap-3" onClick={() => setIsOpen(false)}>
@@ -121,7 +122,7 @@ export default function NavBar() {
           <a
             href={DEMO_MAILTO_HREF}
             onClick={() => setIsOpen(false)}
-            className="mt-10 inline-block w-fit bg-[#F7E7A8] text-[#212121] font-mono text-base font-semibold px-6 py-2.5 rounded-full hover:bg-[#FBE381] transition-colors shadow-sm active:scale-95"
+            className="mt-10 w-full text-center bg-[#F7E7A8] text-[#212121] font-mono text-base font-semibold px-6 py-3.5 rounded-full hover:bg-[#FBE381] transition-colors shadow-sm active:scale-95"
           >
             Request a demo
           </a>
@@ -155,6 +156,7 @@ export default function NavBar() {
             </a>
           </div>
 
+        </div>
         </div>
       )}
     </>
