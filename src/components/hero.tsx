@@ -36,7 +36,7 @@ export default function Hero() {
           
           <div className="flex-1 flex flex-col items-center justify-center px-4 text-center">
             
-            <h1 className="font-serif font-semibold text-4xl md:text-6xl lg:text-7xl text-brand-cream max-w-4xl mb-6 drop-shadow-md leading-[1.05]">
+            <h1 className="font-serif font-normal text-[clamp(2.25rem,calc(10vw_-_2px),2.75rem)] md:text-6xl lg:text-7xl text-brand-cream max-w-4xl mb-6 drop-shadow-md leading-[1.05]">
               Africa's farms are still <br className="hidden md:block" />operating blind
             </h1>
             

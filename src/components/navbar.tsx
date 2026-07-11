@@ -4,13 +4,50 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+const DEMO_MAILTO_SUBJECT = "Demo Request — Aeroseeds Services";
+const DEMO_MAILTO_BODY = `Hello Aeroseeds team,
+
+I'd like to request a demo of your services. I'm interested in:
+[ ] Scan
+[ ] Detect
+[ ] Spray
+[ ] Survey
+[ ] Plant
+[ ] General enquiries
+
+Name:
+Farm location:
+Farm size (hectares):
+Phone number:
+
+Additional details:
+
+Thank you.`;
+const DEMO_MAILTO_HREF = `mailto:plant@aeroseeds.io?subject=${encodeURIComponent(
+  DEMO_MAILTO_SUBJECT
+)}&body=${encodeURIComponent(DEMO_MAILTO_BODY.replace(/\n/g, "\r\n"))}`;
+
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <section className="fixed top-6 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-[1600px] bg-[#7C7C7C]/[0.21] border border-white/[0.18] rounded-full backdrop-blur-md">
-        <nav className="flex h-16 md:h-20 items-center justify-between px-6 md:px-10 font-mono">
+      {/* SVG displacement map that gives the glass its refraction ("lensing") */}
+      <svg className="absolute w-0 h-0" aria-hidden="true">
+        <defs>
+          <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+            <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="noise" />
+            <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
+            <feDisplacementMap in="SourceGraphic" in2="blurred" scale="70" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+      </svg>
+
+      <section className="liquid-glass fixed top-6 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-[1600px] rounded-full">
+        <div className="liquid-glass-effect" />
+        <div className="liquid-glass-tint" />
+        <div className="liquid-glass-shine" />
+        <nav className="relative z-10 flex h-16 md:h-20 items-center justify-between px-6 md:px-10 font-mono">
           
           {/* LOGO & BRAND */}
           <Link href="/" className="flex items-center gap-3">
@@ -26,13 +63,13 @@ export default function NavBar() {
             <Link href="#context" className="hover:text-[#F7E7A8] transition-colors">The Context</Link>
             <Link href="#system" className="hover:text-[#F7E7A8] transition-colors">The System</Link>
             <Link href="#impact" className="hover:text-[#F7E7A8] transition-colors">Impact</Link>
-            <Link href="#understand-your-land" className="hover:text-[#F7E7A8] transition-colors">Understand your land</Link>
+            <Link href="#understand-your-land" className="hover:text-[#F7E7A8] transition-colors">Understand your farm</Link>
           </div>
 
           {/* REQUEST A DEMO BUTTON (Hidden on mobile) */}
-          <button className="hidden md:block bg-[#212121] text-[#F7E7A8] font-mono text-sm md:text-base font-semibold px-6 py-2.5 rounded-full hover:bg-black transition-colors shadow-sm hover:scale-105 active:scale-95">
+          <a href={DEMO_MAILTO_HREF} className="hidden md:block bg-[#212121] text-[#F7E7A8] font-mono text-sm md:text-base font-semibold px-6 py-2.5 rounded-full hover:bg-black transition-colors shadow-sm hover:scale-105 active:scale-95">
             Request a demo
-          </button>
+          </a>
 
           {/* HAMBURGER MENU BUTTON (Mobile only) */}
           <button 
@@ -49,53 +86,66 @@ export default function NavBar() {
       {/* FULL SCREEN MOBILE MENU OVERLAY */}
       {isOpen && (
         <div className="fixed inset-0 z-50 bg-[#131313] flex flex-col px-6 py-8 animate-in fade-in duration-200">
-          
-          {/* TOP BAR INSIDE MENU */}
-          <div className="flex items-center justify-between w-full mb-16">
-            <Link href="/" className="flex items-center gap-3" onClick={() => setIsOpen(false)}>
-              <Image src="/logo.svg" alt="Aeroseeds Logo" width={32} height={32} />
-              <span className="font-sans text-[28px] text-white tracking-tight mt-1">
-                aeroseeds
-              </span>
-            </Link>
-            
-            {/* CLOSE BUTTON (X) */}
-            <button 
+        <div className="flex flex-col flex-1 justify-between w-full max-w-md mx-auto">
+
+          <div>
+            {/* TOP BAR INSIDE MENU */}
+            <div className="flex items-center justify-between w-full mb-12">
+              <Link href="/" className="flex items-center gap-3" onClick={() => setIsOpen(false)}>
+                <Image src="/logo.svg" alt="Aeroseeds Logo" width={32} height={32} />
+                <span className="font-sans text-3xl text-white tracking-tight mt-1">
+                  aeroseeds
+                </span>
+              </Link>
+
+              {/* CLOSE BUTTON (X) */}
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-white p-2"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+
+            {/* MENU LINKS */}
+            <div className="flex flex-col gap-6 text-[28px] font-serif tracking-wide">
+              {/* Highlighted Home Link */}
+              <Link href="/" onClick={() => setIsOpen(false)} className="text-[#F7E7A8]">
+                Home
+              </Link>
+              <Link href="#problem" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
+                The Problem
+              </Link>
+              <Link href="#context" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
+                The Context
+              </Link>
+              <Link href="#system" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
+                The System
+              </Link>
+              <Link href="#impact" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
+                Impact
+              </Link>
+              <Link href="#understand-your-land" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
+                Your Farm
+              </Link>
+            </div>
+          </div>
+
+          <div>
+            {/* REQUEST A DEMO BUTTON */}
+            <a
+              href={DEMO_MAILTO_HREF}
               onClick={() => setIsOpen(false)}
-              className="text-white p-2"
+              className="w-full text-center bg-[#F7E7A8] text-[#212121] font-mono text-base font-semibold px-6 py-3.5 rounded-full hover:bg-[#FBE381] transition-colors shadow-sm active:scale-95"
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
-          </div>
+              Request a demo
+            </a>
 
-          {/* MENU LINKS */}
-          <div className="flex flex-col gap-10 text-[32px] font-serif tracking-wide">
-            {/* Highlighted Home Link */}
-            <Link href="/" onClick={() => setIsOpen(false)} className="text-[#F7E7A8]">
-              Home
-            </Link>
-            <Link href="#problem" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
-              The Problem
-            </Link>
-            <Link href="#context" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
-              The Context
-            </Link>
-            <Link href="#system" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
-              The System
-            </Link>
-            <Link href="#impact" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
-              Impact
-            </Link>
-            <Link href="#understand-your-land" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
-              Your Land
-            </Link>
-          </div>
-
-          {/* SOCIAL ICONS */}
-          <div className="mt-auto flex gap-6 text-white pb-4">
+            {/* SOCIAL ICONS */}
+            <div className="mt-8 flex gap-6 text-white pb-2">
             <a href="#" className="hover:text-[#F7E7A8] transition-colors">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -122,7 +172,9 @@ export default function NavBar() {
               </svg>
             </a>
           </div>
+          </div>
 
+        </div>
         </div>
       )}
     </>
