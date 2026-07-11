@@ -72,63 +72,66 @@ export default function NavBar() {
       {/* FULL SCREEN MOBILE MENU OVERLAY */}
       {isOpen && (
         <div className="fixed inset-0 z-50 bg-[#131313] flex flex-col px-6 py-8 animate-in fade-in duration-200">
-        <div className="flex flex-col flex-1 w-full max-w-md mx-auto">
+        <div className="flex flex-col flex-1 justify-between w-full max-w-md mx-auto">
 
-          {/* TOP BAR INSIDE MENU */}
-          <div className="flex items-center justify-between w-full mb-16">
-            <Link href="/" className="flex items-center gap-3" onClick={() => setIsOpen(false)}>
-              <Image src="/logo.svg" alt="Aeroseeds Logo" width={32} height={32} />
-              <span className="font-sans text-[28px] text-white tracking-tight mt-1">
-                aeroseeds
-              </span>
-            </Link>
-            
-            {/* CLOSE BUTTON (X) */}
-            <button 
+          <div>
+            {/* TOP BAR INSIDE MENU */}
+            <div className="flex items-center justify-between w-full mb-12">
+              <Link href="/" className="flex items-center gap-3" onClick={() => setIsOpen(false)}>
+                <Image src="/logo.svg" alt="Aeroseeds Logo" width={32} height={32} />
+                <span className="font-sans text-3xl text-white tracking-tight mt-1">
+                  aeroseeds
+                </span>
+              </Link>
+
+              {/* CLOSE BUTTON (X) */}
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-white p-2"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+
+            {/* MENU LINKS */}
+            <div className="flex flex-col gap-6 text-[28px] font-serif tracking-wide">
+              {/* Highlighted Home Link */}
+              <Link href="/" onClick={() => setIsOpen(false)} className="text-[#F7E7A8]">
+                Home
+              </Link>
+              <Link href="#problem" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
+                The Problem
+              </Link>
+              <Link href="#context" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
+                The Context
+              </Link>
+              <Link href="#system" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
+                The System
+              </Link>
+              <Link href="#impact" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
+                Impact
+              </Link>
+              <Link href="#understand-your-land" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
+                Your Farm
+              </Link>
+            </div>
+          </div>
+
+          <div>
+            {/* REQUEST A DEMO BUTTON */}
+            <a
+              href={DEMO_MAILTO_HREF}
               onClick={() => setIsOpen(false)}
-              className="text-white p-2"
+              className="w-full text-center bg-[#F7E7A8] text-[#212121] font-mono text-base font-semibold px-6 py-3.5 rounded-full hover:bg-[#FBE381] transition-colors shadow-sm active:scale-95"
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
-          </div>
+              Request a demo
+            </a>
 
-          {/* MENU LINKS */}
-          <div className="flex flex-col gap-10 text-[32px] font-serif tracking-wide">
-            {/* Highlighted Home Link */}
-            <Link href="/" onClick={() => setIsOpen(false)} className="text-[#F7E7A8]">
-              Home
-            </Link>
-            <Link href="#problem" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
-              The Problem
-            </Link>
-            <Link href="#context" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
-              The Context
-            </Link>
-            <Link href="#system" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
-              The System
-            </Link>
-            <Link href="#impact" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
-              Impact
-            </Link>
-            <Link href="#understand-your-land" onClick={() => setIsOpen(false)} className="text-white hover:text-[#F7E7A8] transition-colors">
-              Your Farm
-            </Link>
-          </div>
-
-          {/* REQUEST A DEMO BUTTON */}
-          <a
-            href={DEMO_MAILTO_HREF}
-            onClick={() => setIsOpen(false)}
-            className="mt-10 w-full text-center bg-[#F7E7A8] text-[#212121] font-mono text-base font-semibold px-6 py-3.5 rounded-full hover:bg-[#FBE381] transition-colors shadow-sm active:scale-95"
-          >
-            Request a demo
-          </a>
-
-          {/* SOCIAL ICONS */}
-          <div className="mt-auto flex gap-6 text-white pb-4">
+            {/* SOCIAL ICONS */}
+            <div className="mt-8 flex gap-6 text-white pb-2">
             <a href="#" className="hover:text-[#F7E7A8] transition-colors">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -154,6 +157,7 @@ export default function NavBar() {
                 <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
               </svg>
             </a>
+          </div>
           </div>
 
         </div>
