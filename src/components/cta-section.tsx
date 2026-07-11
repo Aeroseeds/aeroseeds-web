@@ -3,9 +3,64 @@
 import { useState } from "react";
 import Image from "next/image";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+type SubmitStatus = "idle" | "sending" | "success" | "error";
+
 export default function CtaSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeRole, setActiveRole] = useState<string>("Farmer");
+  const [message, setMessage] = useState("");
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setActiveRole("Farmer");
+    setMessage("");
+    setEmail("");
+    setEmailError("");
+    setStatus("idle");
+  };
+
+  const openModal = () => {
+    setActiveRole("Farmer");
+    setMessage("");
+    setEmail("");
+    setEmailError("");
+    setStatus("idle");
+    setIsModalOpen(true);
+  };
+
+  const handleSubmit = async () => {
+    if (!email.trim() || !EMAIL_REGEX.test(email.trim())) {
+      setEmailError("Please enter a valid email address.");
+      return;
+    }
+    setEmailError("");
+    setStatus("sending");
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/jonathanolayinka05@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          _subject: "New 'Get Involved' submission — Aeroseeds",
+          _template: "table",
+          Role: activeRole,
+          "What brought them here": message,
+          Email: email,
+        }),
+      });
+      if (!res.ok) throw new Error("Non-OK response");
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
+  };
 
   return (
     <>
@@ -16,8 +71,8 @@ export default function CtaSection() {
             Take control of<br className="hidden md:block" /> your land
           </h2>
           
-          <button 
-            onClick={() => setIsModalOpen(true)}
+          <button
+            onClick={openModal}
             className="bg-[#FBE381] text-[#120F0C] font-mono text-sm md:text-base font-bold px-8 py-3.5 rounded-full hover:bg-[#f1d460] transition-colors shadow-sm hover:scale-105 active:scale-95"
           >
             Get involved
@@ -35,8 +90,8 @@ export default function CtaSection() {
             >
               Thesis &amp; Hiring ↗
             </a>
-            <a href="" className="hover:underline opacity-80 hover:opacity-100 transition-opacity">Privacy policy</a>
-            <a href="" className="hover:underline opacity-80 hover:opacity-100 transition-opacity">Terms and Services</a>
+            <a href="/privacy" className="hover:underline opacity-80 hover:opacity-100 transition-opacity">Privacy policy</a>
+            <a href="/terms" className="hover:underline opacity-80 hover:opacity-100 transition-opacity">Terms of Use</a>
             <a href="mailto:plant@aeroseeds.io" className="hover:underline opacity-80 hover:opacity-100 transition-opacity">plant@aeroseeds.io</a>
           </div>
 
@@ -101,10 +156,16 @@ export default function CtaSection() {
           DORMANT MODAL OVERLAY
           ========================================= */}
       {isModalOpen && (
-        <div className="fixed inset-0 h-[100dvh] w-full z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-          
-          <div className="w-full max-w-[500px] bg-[#F7E7A8] rounded-[24px] p-5 md:p-8 shadow-2xl relative max-h-[95vh] overflow-y-auto">
-            
+        <div
+          onClick={closeModal}
+          className="fixed inset-0 h-[100dvh] w-full z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+        >
+
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-[500px] bg-[#F7E7A8] rounded-[24px] p-5 md:p-8 shadow-2xl relative max-h-[95vh] overflow-y-auto"
+          >
+
             <h2 className="font-serif text-[32px] md:text-[40px] font-bold text-[#131313] leading-tight tracking-tight mb-2 md:mb-3">
               Be part of what's<br/>being built.
             </h2>
@@ -116,10 +177,11 @@ export default function CtaSection() {
               {["Farmer", "Investor", "An Organisation", "Following the mission"].map((role) => (
                 <button
                   key={role}
+                  disabled={status === "success"}
                   onClick={() => setActiveRole(role)}
-                  className={`w-full text-left px-3 py-2.5 md:px-4 md:py-3 rounded-xl border border-[#131313] font-mono text-[11px] md:text-sm transition-colors ${
-                    activeRole === role 
-                      ? "bg-[#131313] text-[#F7E7A8]" 
+                  className={`w-full text-left px-3 py-2.5 md:px-4 md:py-3 rounded-xl border border-[#131313] font-mono text-[11px] md:text-sm transition-colors disabled:opacity-50 ${
+                    activeRole === role
+                      ? "bg-[#131313] text-[#F7E7A8]"
                       : "bg-transparent text-[#131313] hover:bg-[#131313]/5"
                   }`}
                 >
@@ -128,15 +190,18 @@ export default function CtaSection() {
               ))}
             </div>
 
-            <div className="space-y-3 md:space-y-5">
+            <div className={`space-y-3 md:space-y-5 ${status === "success" ? "opacity-50" : ""}`}>
               <div>
                 <label className="block font-mono text-[12px] md:text-[13px] text-[#131313] mb-1.5 md:mb-2">
                   What brought you here?
                 </label>
-                <textarea 
+                <textarea
                   rows={2}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  disabled={status === "success"}
                   placeholder="How you found us what resonated.."
-                  className="w-full bg-white border border-[#131313] rounded-xl px-3 py-2.5 md:px-4 md:py-3 font-mono text-xs md:text-sm text-[#131313] placeholder-[#131313]/40 focus:outline-none focus:ring-1 focus:ring-[#131313] resize-none"
+                  className="w-full bg-white border border-[#131313] rounded-xl px-3 py-2.5 md:px-4 md:py-3 font-mono text-xs md:text-sm text-[#131313] placeholder-[#131313]/40 focus:outline-none focus:ring-1 focus:ring-[#131313] resize-none disabled:opacity-50"
                 ></textarea>
               </div>
 
@@ -144,28 +209,59 @@ export default function CtaSection() {
                 <label className="block font-mono text-[12px] md:text-[13px] text-[#131313] mb-1.5 md:mb-2">
                   Your email address
                 </label>
-                <input 
+                <input
                   type="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (emailError) setEmailError("");
+                  }}
+                  disabled={status === "success"}
                   placeholder="you@example.com"
-                  className="w-full bg-white border border-[#131313] rounded-xl px-3 py-2.5 md:px-4 md:py-3 font-mono text-xs md:text-sm text-[#131313] placeholder-[#131313]/40 focus:outline-none focus:ring-1 focus:ring-[#131313]"
+                  className="w-full bg-white border border-[#131313] rounded-xl px-3 py-2.5 md:px-4 md:py-3 font-mono text-xs md:text-sm text-[#131313] placeholder-[#131313]/40 focus:outline-none focus:ring-1 focus:ring-[#131313] disabled:opacity-50"
                 />
+                {emailError && (
+                  <p className="mt-1.5 font-mono text-[11px] md:text-xs text-red-600">{emailError}</p>
+                )}
               </div>
             </div>
 
-            <div className="flex items-center gap-3 mt-5 md:mt-8">
-              <button 
-                onClick={() => setIsModalOpen(false)}
-                className="flex-1 py-2.5 md:py-3.5 rounded-full border border-[#131313] bg-transparent text-[#131313] font-mono font-semibold text-[13px] md:text-sm hover:bg-[#131313]/5 transition-colors"
-              >
-                Cancel
-              </button>
-              <button 
-                onClick={() => setIsModalOpen(false)}
-                className="flex-1 py-2.5 md:py-3.5 rounded-full bg-[#131313] text-[#F7E7A8] font-mono font-semibold text-[13px] md:text-sm hover:bg-black transition-colors"
-              >
-                Get Involved
-              </button>
-            </div>
+            {status === "error" && (
+              <p className="mt-3 font-mono text-[11px] md:text-xs text-red-600">
+                Something went wrong — please try again or email plant@aeroseeds.io
+              </p>
+            )}
+
+            {status === "success" ? (
+              <div className="mt-5 md:mt-8 flex flex-col items-center gap-3">
+                <div className="w-full py-2.5 md:py-3.5 rounded-full bg-[#131313] text-[#F7E7A8] font-mono font-semibold text-[13px] md:text-sm text-center">
+                  ✓ You're in. We'll reach out directly.
+                </div>
+                <button
+                  onClick={closeModal}
+                  className="font-mono text-[12px] md:text-sm text-[#131313] underline hover:opacity-70 transition-opacity"
+                >
+                  Close
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-3 mt-5 md:mt-8">
+                <button
+                  onClick={closeModal}
+                  disabled={status === "sending"}
+                  className="flex-1 py-2.5 md:py-3.5 rounded-full border border-[#131313] bg-transparent text-[#131313] font-mono font-semibold text-[13px] md:text-sm hover:bg-[#131313]/5 transition-colors disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSubmit}
+                  disabled={status === "sending"}
+                  className="flex-1 py-2.5 md:py-3.5 rounded-full bg-[#131313] text-[#F7E7A8] font-mono font-semibold text-[13px] md:text-sm hover:bg-black transition-colors disabled:opacity-50"
+                >
+                  {status === "sending" ? "Sending..." : "Get Involved"}
+                </button>
+              </div>
+            )}
 
           </div>
         </div>
